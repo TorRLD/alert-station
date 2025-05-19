@@ -128,4 +128,4 @@ Distribuído sob a **Licença MIT** – consulte o arquivo [`LICENSE`](LICENSE).
 
 <br>
 
-<p align="center">Feito com ❤️ por Heitor Lemos na Bahia</p>
+<p align="center">Feito com ❤️ por Heitor Lemos</p>
