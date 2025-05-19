@@ -79,9 +79,9 @@ const uint8_t SCL = 15;
 //===============================================
 // Cores para a matriz WS2812
 //===============================================
-#define COR_WS2812_R 20
-#define COR_WS2812_G 20
-#define COR_WS2812_B 50
+#define COR_WS2812_R 10
+#define COR_WS2812_G 10
+#define COR_WS2812_B 10
 
 //===============================================
 // Estados e estruturas
@@ -319,7 +319,7 @@ void vControlTask(void *pvParameters) {
             
             // Configura atuadores baseado no modo
             if (dados_sensores.modo == MODO_ALERTA) {
-                controle.r = 255; controle.g = 0; controle.b = 0; // Vermelho
+                controle.r = 60; controle.g = 0; controle.b = 0; // Vermelho
                 controle.buzzer_ativo = true;
                 controle.freq_buzzer = 1000; // 1kHz
                 controle.matriz_alerta = true;
@@ -334,7 +334,7 @@ void vControlTask(void *pvParameters) {
                     }
                 }
             } else {
-                controle.r = 0; controle.g = 255; controle.b = 0; // Verde
+                controle.r = 0; controle.g = 60; controle.b = 0; // Verde
                 controle.buzzer_ativo = false;
                 controle.freq_buzzer = 0;
                 controle.matriz_alerta = false;
@@ -474,7 +474,7 @@ void vDisplayTask(void *pvParameters) {
                     ssd1306_draw_string(&display, "! NIVEL CRITICO !", 0, 48);
                 }
                 if (dados.volume_chuva >= LIMIAR_VOLUME_CHUVA) {
-                    ssd1306_draw_string(&display, "! CHUVA INTENSA !", 0, 56);
+                    ssd1306_draw_string(&display, "! CHUVA INTENSA !", 0, 48);
                 }
             }
             
