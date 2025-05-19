@@ -80,7 +80,7 @@ const uint8_t SCL = 15;
 // Cores para a matriz WS2812
 //===============================================
 #define COR_WS2812_R 10
-#define COR_WS2812_G 10
+#define COR_WS2812_G 20
 #define COR_WS2812_B 10
 
 //===============================================
@@ -180,7 +180,7 @@ void init_rgb_led() {
 // Define cor do LED RGB 
 void set_rgb_color(uint8_t r, uint8_t g, uint8_t b) {
     pwm_set_chan_level(pwm_gpio_to_slice_num(R_LED_PIN), pwm_gpio_to_channel(R_LED_PIN), r);
-    gpio_put(G_LED_PIN, g > 128); // Digital on/off baseado na intensidade
+    gpio_put(G_LED_PIN, g > 10); // Digital on/off baseado na intensidade
     pwm_set_chan_level(pwm_gpio_to_slice_num(B_LED_PIN), pwm_gpio_to_channel(B_LED_PIN), b);
 }
 
