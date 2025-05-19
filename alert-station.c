@@ -28,11 +28,11 @@
 #include "task.h"
 #include "queue.h"
 
-// Biblioteca para Matriz RGB (como no IntelliTraffic)
+// Biblioteca para Matriz RGB 
 #include "ws2812.pio.h"
 
 //===============================================
-// Configurações dos pinos (seguindo padrão NeuroSync)
+// Configurações dos pinos 
 //===============================================
 
 // OLED via I2C
@@ -113,7 +113,7 @@ typedef struct {
 // Variáveis globais
 //===============================================
 
-// Matriz de pixels (seguindo padrão NeuroSync)
+// Matriz de pixels 
 bool buffer_leds[NUM_PIXELS] = {false};
 
 // Display OLED
@@ -151,10 +151,10 @@ const bool padrao_alerta[5][5] = {
 };
 
 //===============================================
-// Funções auxiliares (baseadas no NeuroSync)
+// Funções auxiliares 
 //===============================================
 
-// Inicializa o LED RGB com PWM (adaptado do NeuroSync)
+// Inicializa o LED RGB com PWM 
 void init_rgb_led() {
     gpio_set_function(R_LED_PIN, GPIO_FUNC_PWM);
     gpio_set_function(B_LED_PIN, GPIO_FUNC_PWM);
@@ -172,19 +172,19 @@ void init_rgb_led() {
         pwm_set_enabled(slice_b, true);
     }
     
-    // LED Verde como saída digital (seguindo NeuroSync)
+    // LED Verde como saída digital 
     gpio_init(G_LED_PIN);
     gpio_set_dir(G_LED_PIN, GPIO_OUT);
 }
 
-// Define cor do LED RGB (adaptado do NeuroSync)
+// Define cor do LED RGB 
 void set_rgb_color(uint8_t r, uint8_t g, uint8_t b) {
     pwm_set_chan_level(pwm_gpio_to_slice_num(R_LED_PIN), pwm_gpio_to_channel(R_LED_PIN), r);
     gpio_put(G_LED_PIN, g > 128); // Digital on/off baseado na intensidade
     pwm_set_chan_level(pwm_gpio_to_slice_num(B_LED_PIN), pwm_gpio_to_channel(B_LED_PIN), b);
 }
 
-// Inicia buzzer (baseado no IntelliTraffic)
+// Inicia buzzer 
 void iniciar_buzzer(uint32_t freq) {
     gpio_set_function(BUZZER_PIN, GPIO_FUNC_PWM);
     uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
@@ -201,7 +201,7 @@ void iniciar_buzzer(uint32_t freq) {
     estado_buzzer = true;
 }
 
-// Para buzzer (baseado no IntelliTraffic)
+// Para buzzer 
 void parar_buzzer() {
     uint slice_num = pwm_gpio_to_slice_num(BUZZER_PIN);
     pwm_set_enabled(slice_num, false);
@@ -211,7 +211,7 @@ void parar_buzzer() {
 }
 
 //===============================================
-// Funções da matriz de LEDs (baseado no NeuroSync)
+// Funções da matriz de LEDs 
 //===============================================
 
 // Função auxiliar para formatar cores para a matriz de LEDs
@@ -251,7 +251,7 @@ void atualizar_buffer_matriz(const bool padrão[5][5]) {
 //===============================================
 
 void init_display() {
-    // Inicialização do I2C (seguindo padrão NeuroSync)
+    // Inicialização do I2C 
     i2c_init(I2C_PORT, 400 * 1000);
     gpio_set_function(SDA, GPIO_FUNC_I2C);
     gpio_set_function(SCL, GPIO_FUNC_I2C);
@@ -355,7 +355,7 @@ void vControlTask(void *pvParameters) {
     }
 }
 
-// Task para controle do buzzer (seguindo padrão IntelliTraffic)
+// Task para controle do buzzer
 void vBuzzerTask(void *pvParameters) {
     ControleAtuadores controle;
     
@@ -489,7 +489,7 @@ void vDisplayTask(void *pvParameters) {
     }
 }
 
-// Task de inicialização/startup (seguindo padrão IntelliTraffic)
+// Task de inicialização/startup 
 void vStartupTask(void *pvParameters) {
     // Tela de inicialização no display
     ssd1306_fill(&display, 0);
@@ -498,7 +498,7 @@ void vStartupTask(void *pvParameters) {
     ssd1306_draw_string(&display, "Inicializando...", 5, 40);
     ssd1306_send_data(&display);
     
-    // Sequência sonora de inicialização (como no NeuroSync)
+    // Sequência sonora de inicialização 
     iniciar_buzzer(523); // Dó
     vTaskDelay(pdMS_TO_TICKS(200));
     parar_buzzer();
@@ -513,7 +513,7 @@ void vStartupTask(void *pvParameters) {
     vTaskDelay(pdMS_TO_TICKS(200));
     parar_buzzer();
     
-    // Inicializa matriz WS2812 via PIO (seguindo NeuroSync)
+    // Inicializa matriz WS2812 via PIO 
     PIO pio = pio0;
     uint sm = 0;
     uint offset = pio_add_program(pio, &ws2812_program);
